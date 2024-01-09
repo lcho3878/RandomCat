@@ -12,6 +12,13 @@
 		54C239C42B4BE94F0002DB36 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C239C32B4BE94F0002DB36 /* MainViewController.swift */; };
 		54C239C92B4BE9500002DB36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54C239C82B4BE9500002DB36 /* Assets.xcassets */; };
 		54C239CC2B4BE9500002DB36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54C239CA2B4BE9500002DB36 /* LaunchScreen.storyboard */; };
+		54C239F12B4BEB370002DB36 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 54C239F02B4BEB370002DB36 /* Then */; };
+		54C239F42B4BEB430002DB36 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 54C239F32B4BEB430002DB36 /* SnapKit */; };
+		54C239F72B4BEB500002DB36 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 54C239F62B4BEB500002DB36 /* RxCocoa */; };
+		54C239F92B4BEB500002DB36 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 54C239F82B4BEB500002DB36 /* RxSwift */; };
+		54C239FB2B4BECD60002DB36 /* CatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C239FA2B4BECD60002DB36 /* CatViewController.swift */; };
+		54C23A002B4BEE0E0002DB36 /* CatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C239FF2B4BEE0E0002DB36 /* CatManager.swift */; };
+		54C23A022B4BEF0C0002DB36 /* CatInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C23A012B4BEF0C0002DB36 /* CatInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +48,9 @@
 		54C239CD2B4BE9500002DB36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54C239D22B4BE9500002DB36 /* RandomCatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomCatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		54C239DC2B4BE9500002DB36 /* RandomCatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomCatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		54C239FA2B4BECD60002DB36 /* CatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatViewController.swift; sourceTree = "<group>"; };
+		54C239FF2B4BEE0E0002DB36 /* CatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatManager.swift; sourceTree = "<group>"; };
+		54C23A012B4BEF0C0002DB36 /* CatInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +58,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54C239F72B4BEB500002DB36 /* RxCocoa in Frameworks */,
+				54C239F12B4BEB370002DB36 /* Then in Frameworks */,
+				54C239F92B4BEB500002DB36 /* RxSwift in Frameworks */,
+				54C239F42B4BEB430002DB36 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,12 +105,31 @@
 			children = (
 				54C239BF2B4BE94F0002DB36 /* AppDelegate.swift */,
 				54C239C12B4BE94F0002DB36 /* SceneDelegate.swift */,
-				54C239C32B4BE94F0002DB36 /* MainViewController.swift */,
+				54C239FF2B4BEE0E0002DB36 /* CatManager.swift */,
+				54C23A012B4BEF0C0002DB36 /* CatInfo.swift */,
+				54C239FD2B4BED2A0002DB36 /* Main */,
+				54C239FE2B4BED2D0002DB36 /* CatView */,
 				54C239C82B4BE9500002DB36 /* Assets.xcassets */,
 				54C239CA2B4BE9500002DB36 /* LaunchScreen.storyboard */,
 				54C239CD2B4BE9500002DB36 /* Info.plist */,
 			);
 			path = RandomCat;
+			sourceTree = "<group>";
+		};
+		54C239FD2B4BED2A0002DB36 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				54C239C32B4BE94F0002DB36 /* MainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		54C239FE2B4BED2D0002DB36 /* CatView */ = {
+			isa = PBXGroup;
+			children = (
+				54C239FA2B4BECD60002DB36 /* CatViewController.swift */,
+			);
+			path = CatView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -115,6 +148,12 @@
 			dependencies = (
 			);
 			name = RandomCat;
+			packageProductDependencies = (
+				54C239F02B4BEB370002DB36 /* Then */,
+				54C239F32B4BEB430002DB36 /* SnapKit */,
+				54C239F62B4BEB500002DB36 /* RxCocoa */,
+				54C239F82B4BEB500002DB36 /* RxSwift */,
+			);
 			productName = RandomCat;
 			productReference = 54C239BC2B4BE94F0002DB36 /* RandomCat.app */;
 			productType = "com.apple.product-type.application";
@@ -187,6 +226,11 @@
 				Base,
 			);
 			mainGroup = 54C239B32B4BE94F0002DB36;
+			packageReferences = (
+				54C239EF2B4BEB370002DB36 /* XCRemoteSwiftPackageReference "Then" */,
+				54C239F22B4BEB430002DB36 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				54C239F52B4BEB500002DB36 /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = 54C239BD2B4BE94F0002DB36 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -229,7 +273,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54C23A002B4BEE0E0002DB36 /* CatManager.swift in Sources */,
 				54C239C42B4BE94F0002DB36 /* MainViewController.swift in Sources */,
+				54C23A022B4BEF0C0002DB36 /* CatInfo.swift in Sources */,
+				54C239FB2B4BECD60002DB36 /* CatViewController.swift in Sources */,
 				54C239C02B4BE94F0002DB36 /* AppDelegate.swift in Sources */,
 				54C239C22B4BE94F0002DB36 /* SceneDelegate.swift in Sources */,
 			);
@@ -403,6 +450,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -429,6 +477,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -554,6 +603,56 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		54C239EF2B4BEB370002DB36 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		54C239F22B4BEB430002DB36 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		54C239F52B4BEB500002DB36 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		54C239F02B4BEB370002DB36 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 54C239EF2B4BEB370002DB36 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		54C239F32B4BEB430002DB36 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 54C239F22B4BEB430002DB36 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		54C239F62B4BEB500002DB36 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 54C239F52B4BEB500002DB36 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		54C239F82B4BEB500002DB36 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 54C239F52B4BEB500002DB36 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 54C239B42B4BE94F0002DB36 /* Project object */;
 }
