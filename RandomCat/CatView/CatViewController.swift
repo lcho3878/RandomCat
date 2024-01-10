@@ -8,15 +8,14 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
 import RxCocoa
 
 class CatViewController: UIViewController {
+    private let disposeBag = DisposeBag()
     
-    private let myLabel = UILabel().then {
-        $0.text = "로딩중"
-        $0.textColor = .black
-    }
-
+    private let catImageView = UIImageView()
+    
     private let previousButton = UIButton().then {
         $0.setTitle("이전", for: .normal)
         $0.backgroundColor = .systemPink
@@ -31,7 +30,7 @@ class CatViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(previousButton)
         view.addSubview(nextButton)
-        view.addSubview(myLabel)
+        view.addSubview(catImageView)
     }
     
     private func setupConstraint() {
@@ -45,9 +44,10 @@ class CatViewController: UIViewController {
             $0.centerX.equalToSuperview().offset(20)
         }
         
-        myLabel.snp.makeConstraints {
+        catImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(previousButton.snp.top).offset(-100)
+            $0.width.height.equalTo(200)
+            $0.bottom.equalTo(previousButton.snp.top).offset(-20)
         }
     }
     
@@ -56,7 +56,7 @@ class CatViewController: UIViewController {
         setupUI()
         setupConstraint()
         setAddTarget()
-        getNextURL()
+        getNextImage()
     }
     
     private func setAddTarget() {
@@ -65,23 +65,33 @@ class CatViewController: UIViewController {
     }
     
     @objc func nextButtonClick() {
-        getNextURL()
+        getNextImage()
     }
     
-    private func getNextURL() {
-        let observable = CatManager.shared.getCatURL()
-            .subscribe { event in
+    
+    private func getNextImage() {
+        
+        CatManager.shared.getCatURL()
+            .subscribe{ event in
                 switch event {
                 case .next(let url):
-                    DispatchQueue.main.async {
-                        self.myLabel.text = url
+                    if let url = url {
+                        CatManager.shared.getCatImage(url)
+                            .subscribe(onNext: { image in
+                                DispatchQueue.main.async {
+                                    self.catImageView.image = image
+                                }
+                            })
                     }
+                    
+                case .completed:
+                    break
                 case .error(let error):
                     print(error)
-                case .completed:
                     break
                 }
             }
+            .disposed(by: self.disposeBag)
     }
-
+    
 }

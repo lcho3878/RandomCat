@@ -7,12 +7,15 @@
 
 import Foundation
 import RxSwift
+import UIKit
  
-//"https://api.thecatapi.com/v1/images/search"
+//"https://api.thecatapi.com/v1/images/search" // TheCatAPI url
 
 class CatManager {
     
     static let shared = CatManager()
+    
+    var urlList: [String] = []
     
     func getCatURL () -> Observable<String?> {
         return Observable.create() { emitter in
@@ -41,6 +44,31 @@ class CatManager {
             dataTask.resume()
             
             return Disposables.create() {
+                dataTask.cancel()
+            }
+        }
+    }
+    
+    func getCatImage(_ url: String) -> Observable<UIImage?> {
+        return Observable.create { emitter in
+            let imageURL = URL(string: url)!
+            let dataTask = URLSession.shared.dataTask(with: imageURL) { (data, _, error) in
+                guard error == nil else {
+                    emitter.onError(error!)
+                    return
+                }
+                
+                if let data = data {
+                    let image = UIImage(data: data)
+                    emitter.onNext(image)
+                }
+                
+                emitter.onCompleted()
+            }
+            
+            dataTask.resume()
+            
+            return Disposables.create {
                 dataTask.cancel()
             }
         }
