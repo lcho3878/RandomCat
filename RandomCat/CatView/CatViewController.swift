@@ -14,6 +14,8 @@ import RxCocoa
 class CatViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
+    private let catViewModel = CatViewModel()
+    
     private let catImageView = UIImageView()
     
     private let previousButton = UIButton().then {
@@ -21,16 +23,27 @@ class CatViewController: UIViewController {
         $0.backgroundColor = .systemPink
     }
     
+    private let myLabel = UILabel()
+    
     private let nextButton = UIButton().then {
         $0.setTitle("다음", for: .normal)
         $0.backgroundColor = .systemPink
     }
+    
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.color = .systemPink
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(previousButton)
         view.addSubview(nextButton)
         view.addSubview(catImageView)
+        view.addSubview(myLabel)
+        view.addSubview(loadingIndicator)
     }
     
     private func setupConstraint() {
@@ -49,49 +62,50 @@ class CatViewController: UIViewController {
             $0.width.height.equalTo(200)
             $0.bottom.equalTo(previousButton.snp.top).offset(-20)
         }
+        
+        myLabel.snp.makeConstraints { make in
+            make.top.equalTo(previousButton.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+        }
+        
+        loadingIndicator.snp.makeConstraints {
+            $0.center.equalTo(catImageView)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupConstraint()
-        setAddTarget()
-        getNextImage()
+        dataBind()
+        nextButton.sendActions(for: .touchUpInside)
     }
     
-    private func setAddTarget() {
-        nextButton.addTarget(self, action: #selector(nextButtonClick), for: .touchUpInside)
-        previousButton.addTarget(self, action: #selector(nextButtonClick), for: .touchUpInside)
-    }
-    
-    @objc func nextButtonClick() {
-        getNextImage()
-    }
-    
-    
-    private func getNextImage() {
+    private func dataBind() {
+        let input = CatViewModel.Input(
+            nextButtonClick: nextButton.rx.tap,
+            previousButtonClick: previousButton.rx.tap
+        )
+        let output = catViewModel.transform(input: input)
+
+        output.isLoading
+            .drive(loadingIndicator.rx.isAnimating)
+            .disposed(by: disposeBag)
         
-        CatManager.shared.getCatURL()
-            .subscribe{ event in
-                switch event {
-                case .next(let url):
-                    if let url = url {
-                        CatManager.shared.getCatImage(url)
-                            .subscribe(onNext: { image in
-                                DispatchQueue.main.async {
-                                    self.catImageView.image = image
-                                }
-                            })
-                    }
-                    
-                case .completed:
-                    break
-                case .error(let error):
-                    print(error)
-                    break
-                }
-            }
-            .disposed(by: self.disposeBag)
+        output.catURL
+            .drive(myLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        output.catImage
+            .drive(onNext: { [weak self] image in
+                self?.loadingIndicator.stopAnimating()
+            })
+            .disposed(by: disposeBag)
+        
+        output.catImage
+            .drive(catImageView.rx.image)
+            .disposed(by: disposeBag)
+        
     }
     
 }

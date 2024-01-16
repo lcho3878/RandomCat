@@ -17,36 +17,29 @@ class CatManager {
     
     var urlList: [String] = []
     
-    func getCatURL () -> Observable<String?> {
-        return Observable.create() { emitter in
-            let imageURL = URL(string: "https://api.thecatapi.com/v1/images/search")!
-            let dataTask = URLSession.shared.dataTask(with: imageURL) { (data, _, err) in
-                guard err == nil else {
-                    emitter.onError(err!)
-                    return
-                }
-                
-                if let data = data {
-                    do {
-                        let catInfos = try JSONDecoder().decode([CatInfo].self, from: data)
-                        if let firstCat = catInfos.first {
-                            emitter.onNext(firstCat.url)
-                        }
-                    }
-                    catch {
-                        emitter.onError(error)
-                    }
-                }
-                
-                emitter.onCompleted()
+    
+    func getCatURL (completion: @escaping ((String?, Error?) -> Void)) {
+        let apiURL = URL(string: "https://api.thecatapi.com/v1/images/search")!
+        let dataTask = URLSession.shared.dataTask(with: apiURL) { (data, _, err) in
+            guard err == nil else {
+                completion(nil, err)
+                return
             }
             
-            dataTask.resume()
-            
-            return Disposables.create() {
-                dataTask.cancel()
+            if let data = data {
+                do {
+                    let catInfos = try JSONDecoder().decode([CatInfo].self, from: data)
+                    if let firstCat = catInfos.first {
+                        completion(firstCat.url, nil)
+                        return
+                    }
+                }
+                catch {
+                    completion(nil, error)
+                }
             }
         }
+        dataTask.resume()
     }
     
     func getCatImage(_ url: String) -> Observable<UIImage?> {
@@ -54,20 +47,21 @@ class CatManager {
             let imageURL = URL(string: url)!
             let dataTask = URLSession.shared.dataTask(with: imageURL) { (data, _, error) in
                 guard error == nil else {
-                    emitter.onError(error!)
+                    emitter.onNext(nil)
+                    emitter.onCompleted()
                     return
                 }
-                
+
                 if let data = data {
                     let image = UIImage(data: data)
                     emitter.onNext(image)
                 }
-                
+
                 emitter.onCompleted()
             }
-            
+
             dataTask.resume()
-            
+
             return Disposables.create {
                 dataTask.cancel()
             }
