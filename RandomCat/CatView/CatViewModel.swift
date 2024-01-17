@@ -36,13 +36,11 @@ final class CatViewModel: ViewModelType {
     }
     
     struct Output {
-        let catURL: Driver<String>
         let catImage: Driver<UIImage?>
         let isLoading: Driver<Bool>
     }
     
     init() {
-        //        fetchNewCatURL()
         disposeBag = DisposeBag()
         
     }
@@ -68,7 +66,6 @@ final class CatViewModel: ViewModelType {
                 if index >= 0 && index < self.urlList.count {
                     return Driver.just(self.urlList[index])
                 } else {
-                    // 새로운 URL을 가져와서 반환
                     self.fetchNewCatURL()
                     return self.newCatURLSubject.asDriver(onErrorJustReturn: "")
                 }
@@ -88,7 +85,7 @@ final class CatViewModel: ViewModelType {
         catURL.drive().disposed(by: disposeBag)
         catImage.drive().disposed(by: disposeBag)
         
-        return Output(catURL: catURL, catImage: catImage, isLoading: isLoadingSubject.asDriver(onErrorJustReturn: false))
+        return Output(catImage: catImage, isLoading: isLoadingSubject.asDriver(onErrorJustReturn: false))
     }
     
     private func fetchNewCatURL() {
@@ -97,10 +94,7 @@ final class CatViewModel: ViewModelType {
                 return
             }
             
-            // 새로운 URL을 가져온 경우에만 처리
             self?.urlList.append(url)
-            
-            // 새로운 URL이 추가된 경우, 해당 URL을 방출
             self?.newCatURLSubject.onNext(url)
         }
     }

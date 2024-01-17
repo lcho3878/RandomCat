@@ -78,7 +78,7 @@ class CatViewController: UIViewController {
         setupUI()
         setupConstraint()
         dataBind()
-        nextButton.sendActions(for: .touchUpInside)
+        setInitialData()
     }
     
     private func dataBind() {
@@ -92,20 +92,14 @@ class CatViewController: UIViewController {
             .drive(loadingIndicator.rx.isAnimating)
             .disposed(by: disposeBag)
         
-        output.catURL
-            .drive(myLabel.rx.text)
-            .disposed(by: disposeBag)
-
-        output.catImage
-            .drive(onNext: { [weak self] image in
-                self?.loadingIndicator.stopAnimating()
-            })
-            .disposed(by: disposeBag)
-        
         output.catImage
             .drive(catImageView.rx.image)
             .disposed(by: disposeBag)
         
+    }
+    
+    private func setInitialData() {
+        nextButton.sendActions(for: .touchUpInside)
     }
     
 }
