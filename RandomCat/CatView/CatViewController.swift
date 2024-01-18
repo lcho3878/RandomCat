@@ -23,51 +23,56 @@ class CatViewController: UIViewController {
         $0.backgroundColor = .systemPink
     }
     
-    private let myLabel = UILabel()
-    
     private let nextButton = UIButton().then {
         $0.setTitle("다음", for: .normal)
         $0.backgroundColor = .systemPink
     }
     
-    private let loadingIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .large)
-        indicator.color = .systemPink
-        indicator.hidesWhenStopped = true
-        return indicator
-    }()
+    private let saveButton = UIButton().then {
+        $0.setTitle("저장하기", for: .normal)
+        $0.backgroundColor = .systemPink
+    }
+    
+    private let loadingIndicator = UIActivityIndicatorView().then {
+        $0.color = .systemPink
+        $0.hidesWhenStopped = true
+        
+        let screenSize = UIScreen.main.bounds.size
+        let minSize = min(screenSize.width, screenSize.height)
+        $0.transform = CGAffineTransform(scaleX: minSize / 200, y: minSize / 200)
+    }
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(previousButton)
         view.addSubview(nextButton)
         view.addSubview(catImageView)
-        view.addSubview(myLabel)
+        view.addSubview(saveButton)
         view.addSubview(loadingIndicator)
     }
     
     private func setupConstraint() {
+        catImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(view.bounds.width)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+        }
+        
         previousButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
             $0.centerX.equalToSuperview().offset(-20)
+            $0.top.equalTo(catImageView.snp.bottom).offset(20)
         }
         
         nextButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
             $0.centerX.equalToSuperview().offset(20)
+            $0.centerY.equalTo(previousButton)
         }
         
-        catImageView.snp.makeConstraints {
+        saveButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(200)
-            $0.bottom.equalTo(previousButton.snp.top).offset(-20)
+            $0.top.equalTo(previousButton.snp.bottom).offset(20)
         }
-        
-        myLabel.snp.makeConstraints { make in
-            make.top.equalTo(previousButton.snp.bottom).offset(20)
-            make.centerX.equalToSuperview()
-        }
-        
+
         loadingIndicator.snp.makeConstraints {
             $0.center.equalTo(catImageView)
         }
@@ -79,6 +84,7 @@ class CatViewController: UIViewController {
         setupConstraint()
         dataBind()
         setInitialData()
+        setAddtarget()
     }
     
     private func dataBind() {
@@ -100,6 +106,14 @@ class CatViewController: UIViewController {
     
     private func setInitialData() {
         nextButton.sendActions(for: .touchUpInside)
+    }
+    
+    private func setAddtarget() {
+        saveButton.addTarget(self, action: #selector(clickSaveButton), for: .touchUpInside)
+    }
+    
+    @objc func clickSaveButton() {
+        print("dd")
     }
     
 }
