@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		542C51DB2B4FCA3600B62E7E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 542C51DA2B4FCA3600B62E7E /* Kingfisher */; };
 		542C51DD2B4FCEB500B62E7E /* CatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542C51DC2B4FCEB500B62E7E /* CatViewModel.swift */; };
+		5481873A2B5E4D56002A0DB1 /* Imagemakable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548187392B5E4D56002A0DB1 /* Imagemakable.swift */; };
+		5481873C2B5E5004002A0DB1 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5481873B2B5E5004002A0DB1 /* DataManager.swift */; };
+		5481873F2B5E5EA4002A0DB1 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5481873E2B5E5EA4002A0DB1 /* GalleryViewController.swift */; };
+		548187432B5F9063002A0DB1 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548187422B5F9063002A0DB1 /* GalleryCell.swift */; };
 		54C239C02B4BE94F0002DB36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C239BF2B4BE94F0002DB36 /* AppDelegate.swift */; };
 		54C239C22B4BE94F0002DB36 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C239C12B4BE94F0002DB36 /* SceneDelegate.swift */; };
 		54C239C42B4BE94F0002DB36 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C239C32B4BE94F0002DB36 /* MainViewController.swift */; };
@@ -42,6 +46,10 @@
 
 /* Begin PBXFileReference section */
 		542C51DC2B4FCEB500B62E7E /* CatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatViewModel.swift; sourceTree = "<group>"; };
+		548187392B5E4D56002A0DB1 /* Imagemakable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Imagemakable.swift; sourceTree = "<group>"; };
+		5481873B2B5E5004002A0DB1 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		5481873E2B5E5EA4002A0DB1 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		548187422B5F9063002A0DB1 /* GalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
 		54C239BC2B4BE94F0002DB36 /* RandomCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54C239BF2B4BE94F0002DB36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54C239C12B4BE94F0002DB36 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5481873D2B5E5E91002A0DB1 /* GalleryView */ = {
+			isa = PBXGroup;
+			children = (
+				5481873E2B5E5EA4002A0DB1 /* GalleryViewController.swift */,
+				548187422B5F9063002A0DB1 /* GalleryCell.swift */,
+			);
+			path = GalleryView;
+			sourceTree = "<group>";
+		};
 		54C239B32B4BE94F0002DB36 = {
 			isa = PBXGroup;
 			children = (
@@ -110,9 +127,12 @@
 				54C239BF2B4BE94F0002DB36 /* AppDelegate.swift */,
 				54C239C12B4BE94F0002DB36 /* SceneDelegate.swift */,
 				54C239FF2B4BEE0E0002DB36 /* CatManager.swift */,
+				5481873B2B5E5004002A0DB1 /* DataManager.swift */,
+				548187392B5E4D56002A0DB1 /* Imagemakable.swift */,
 				54C23A012B4BEF0C0002DB36 /* CatInfo.swift */,
 				54C239FD2B4BED2A0002DB36 /* Main */,
 				54C239FE2B4BED2D0002DB36 /* CatView */,
+				5481873D2B5E5E91002A0DB1 /* GalleryView */,
 				54C239C82B4BE9500002DB36 /* Assets.xcassets */,
 				54C239CA2B4BE9500002DB36 /* LaunchScreen.storyboard */,
 				54C239CD2B4BE9500002DB36 /* Info.plist */,
@@ -282,10 +302,14 @@
 			files = (
 				54C23A002B4BEE0E0002DB36 /* CatManager.swift in Sources */,
 				542C51DD2B4FCEB500B62E7E /* CatViewModel.swift in Sources */,
+				548187432B5F9063002A0DB1 /* GalleryCell.swift in Sources */,
 				54C239C42B4BE94F0002DB36 /* MainViewController.swift in Sources */,
 				54C23A022B4BEF0C0002DB36 /* CatInfo.swift in Sources */,
 				54C239FB2B4BECD60002DB36 /* CatViewController.swift in Sources */,
+				5481873A2B5E4D56002A0DB1 /* Imagemakable.swift in Sources */,
 				54C239C02B4BE94F0002DB36 /* AppDelegate.swift in Sources */,
+				5481873F2B5E5EA4002A0DB1 /* GalleryViewController.swift in Sources */,
+				5481873C2B5E5004002A0DB1 /* DataManager.swift in Sources */,
 				54C239C22B4BE94F0002DB36 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

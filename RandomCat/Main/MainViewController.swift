@@ -55,7 +55,8 @@ class MainViewController: UIViewController {
     }
     
     @objc func clickGalleryButton() {
-        print("갤러리 클릭")
+        let galleryVC = GalleryViewController()
+        self.navigationController?.pushViewController(galleryVC, animated: true)
     }
     
     private func setAddTarget() {

@@ -24,7 +24,7 @@ final class CatViewModel: ViewModelType {
     
     private let catManager = CatManager()
     private var urlList: [String] = []
-    private var index: Int = 0
+    private var index: Int = -1
     private let newCatURLSubject = PublishSubject<String>()
     private let isLoadingSubject = BehaviorSubject<Bool>(value: false)
     
@@ -37,6 +37,7 @@ final class CatViewModel: ViewModelType {
     
     struct Output {
         let catImage: Driver<UIImage?>
+//        let catURL: Driver<String>
         let isLoading: Driver<Bool>
     }
     
@@ -59,6 +60,8 @@ final class CatViewModel: ViewModelType {
                 return self.index
             }
             .asDriver(onErrorJustReturn: 0)
+        
+        
         
         let catURL = Driver.merge(nextIndex, previoudIndex)
             .flatMapLatest { [weak self] index -> Driver<String> in
@@ -98,4 +101,13 @@ final class CatViewModel: ViewModelType {
             self?.newCatURLSubject.onNext(url)
         }
     }
+//    
+    func getCurrentURL() -> String? {
+        guard index >= 0 && index < urlList.count else {
+            return nil
+        }
+
+        return urlList[index]
+    }
+
 }

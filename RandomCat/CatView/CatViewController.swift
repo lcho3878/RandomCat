@@ -88,6 +88,7 @@ class CatViewController: UIViewController {
     }
     
     private func dataBind() {
+        
         let input = CatViewModel.Input(
             nextButtonClick: nextButton.rx.tap,
             previousButtonClick: previousButton.rx.tap
@@ -113,7 +114,27 @@ class CatViewController: UIViewController {
     }
     
     @objc func clickSaveButton() {
-        print("dd")
+        let alertController = UIAlertController(
+            title: "저장 확인",
+            message: "현재 표시된 고양이를 저장하시겠습니까?",
+            preferredStyle: .alert
+        )
+
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+
+        let saveAction = UIAlertAction(title: "저장", style: .default) { [weak self] _ in
+            // 저장 로직을 여기에 추가
+            if let currentURL = self?.catViewModel.getCurrentURL() {
+                DataManager.shared.saveURL(currentURL)
+            } else {
+                print("No cat URL available.")
+            }
+        }
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+
+        present(alertController, animated: true)
     }
     
 }
