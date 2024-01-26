@@ -48,10 +48,10 @@ class CatManager: Imagemakable, URLmakable {    // imagemakable 프로토콜 채
                 case .failure:
                     emitter.onNext(nil)
                 }
-                
+
                 emitter.onCompleted()
             }
-            
+
             return Disposables.create()
 //            let dataTask = URLSession.shared.dataTask(with: imageURL) { (data, _, error) in
 //                guard error == nil else {

@@ -28,7 +28,6 @@ class MainViewController: UIViewController {
         setupUI()
         setupConstraint()
         setAddTarget()
-        
     }
     
     private func setupUI() {

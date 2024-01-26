@@ -8,10 +8,16 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 class GalleryCell: UICollectionViewCell {
-    private let customLabel = UILabel().then {
-        $0.text = "dfalkjsdflkajdlkfjalksdfjlkadsjflkasdf"
+    private var disposeBag: DisposeBag?
+    
+    private let catImageView = UIImageView()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = nil
     }
     
     override init(frame: CGRect) {
@@ -25,16 +31,24 @@ class GalleryCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        addSubview(customLabel)
+        addSubview(catImageView)
     }
     
     private func setupConstraint() {
-        customLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview()
+        catImageView.snp.makeConstraints {
+            $0.width.height.equalToSuperview()
         }
     }
     
-    func configureUI (_ url: String) {
-        customLabel.text = url
+    func configureUI (_ image: Observable<UIImage?>) {
+        disposeBag = DisposeBag()
+        
+        image
+            .bind(onNext: { [weak self] image in
+                if let image = image{
+                    self?.catImageView.image = image
+                }
+            })
+            .disposed(by: disposeBag!)
     }
 }
