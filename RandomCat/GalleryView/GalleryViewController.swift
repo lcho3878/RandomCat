@@ -64,8 +64,10 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GalleryCell", for: indexPath) as? GalleryCell else {
             return UICollectionViewCell()
         }
-        let image = galleryViewModel.imageList[indexPath.row]
-        cell.configureUI(image)
+//        let image = galleryViewModel.imageList[indexPath.row]
+//        cell.configureUI(image)
+        let url = galleryViewModel.urlList[indexPath.item]
+        cell.configureUI(url)
         return cell
     }
 }

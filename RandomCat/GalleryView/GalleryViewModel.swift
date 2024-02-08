@@ -13,10 +13,12 @@ class GalleryViewModel {
     
     private let catManager = CatManager()
     
-    var imageList = [Observable<UIImage?>]()
+//    var imageList = [Observable<UIImage?>]()
+    var urlList = [String]()
     
     init(imageList: [Observable<UIImage?>] = [Observable<UIImage?>]()) {
-        self.imageList = DataManager.shared.urlList.map { catManager.getCatImage($0) }
+//        self.imageList = DataManager.shared.urlList.map { catManager.getCatImage($0) }
+        self.urlList = DataManager.shared.urlList
     }
 
 }

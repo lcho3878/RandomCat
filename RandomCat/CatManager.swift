@@ -41,38 +41,21 @@ class CatManager: Imagemakable, URLmakable {    // imagemakable 프로토콜 채
     func getCatImage(_ url: String) -> Observable<UIImage?> { // UI랑 관련있는건 사용자의 액션과 관련
         return Observable.create { emitter in
             let imageURL = URL(string: url)!
-            KingfisherManager.shared.retrieveImage(with: imageURL) { result in
-                switch result {
-                case .success(let value):
-                    emitter.onNext(value.image)
-                case .failure:
-                    emitter.onNext(nil)
-                }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                KingfisherManager.shared.retrieveImage(with: imageURL) { result in
+                    switch result {
+                    case .success(let value):
+                        emitter.onNext(value.image)
+                    case .failure:
+                        emitter.onNext(nil)
+                    }
 
-                emitter.onCompleted()
+                    emitter.onCompleted()
+                }
             }
 
+
             return Disposables.create()
-//            let dataTask = URLSession.shared.dataTask(with: imageURL) { (data, _, error) in
-//                guard error == nil else {
-//                    emitter.onNext(nil)
-//                    emitter.onCompleted()
-//                    return
-//                }
-//
-//                if let data = data {
-//                    let image = UIImage(data: data)
-//                    emitter.onNext(image)
-//                }
-//
-//                emitter.onCompleted()
-//            }
-//
-//            dataTask.resume()
-//
-//            return Disposables.create {
-//                dataTask.cancel()
-//            }
         }
     }
 }
